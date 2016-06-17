@@ -52,14 +52,14 @@ Provides:	chromium-stable
 Conflicts:	chromium-testing
 Conflicts:	chromium-unstable
 
-Patch0:		chromium-30.0.1599.66-master-prefs-path.patch
+Patch0:		chromium-master-prefs-path.patch
 
 Patch2:		widevine.patch
 
 # PATCH-FIX-UPSTREAM Add more charset aliases
 Patch6:         chromium-more-codec-aliases.patch
 # PATCH-FIX-OPENSUSE Compile the sandbox with -fPIE settings
-Patch15:	chromium-25.0.1364.172-sandbox-pie.patch
+Patch15:	chromium-sandbox-pie.patch
 
 # archlinux arm enhancement patches
 Patch100:       arm-webrtc-fix.patch
@@ -79,14 +79,14 @@ Patch200:       enable_vaapi_on_linux.diff
 Patch201:       chromium-45.0.2454.101-system-icu-56-does-not-have-detectHostTimeZone.patch
 # (cjw) fix build problem with system libvpx due to usage of private header file
 # mageia patch
-Patch202:       chromium-46-svc_context.patch
+Patch202:       chromium-svc_context.patch
 # fix build with icu other than 54
 Patch204:	chromium-system-icu-r0.patch
 # (cjw) Don't disable deprecated APIs in ffmpeg header files, some of which change the ABI.
 #       From Gentoo: http://mirror.yandex.ru/gentoo-portage/www-client/chromium/files/chromium-system-ffmpeg-r2.patch
 Patch205:       chromium-system-ffmpeg-r3.patch
 # (cjw) fix webrtc build with system ffmpeg
-Patch206:       chromium-51-system-ffmpeg-3.patch
+Patch206:       chromium-system-ffmpeg-3.patch
 # https://aur.archlinux.org/cgit/aur.git/plain/PNGImageDecoder.patch?h=chromium-gtk3
 # fix build with system libpng
 Patch207:	PNGImageDecoder.patch
@@ -331,11 +331,11 @@ rm -rf tools/gyp/test/
 rm -rf v8/test/
 %endif
 
-%patch0 -p1 -b .master-prefs
+%patch0 -p0
 
 # openSUSE patches
 %patch6 -p0
-%patch15 -p1
+%patch15 -p0
 
 # archlinux arm enhancements
 %patch100 -p0
@@ -364,7 +364,7 @@ rm -rf v8/test/
 
 %if 0%{?ffmpeg}
 %patch205 -p1
-%patch206 -p1
+%patch206 -p0
 %endif
 
 %if 0%{?libpng}
