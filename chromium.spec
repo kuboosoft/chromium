@@ -331,7 +331,9 @@ rm -rf tools/gyp/test/
 rm -rf v8/test/
 %endif
 
-%patch0 -p1
+cd %{_builddir}/%{name}-%{version}/
+
+%patch0 -p0
 
 # openSUSE patches
 %patch6 -p0
