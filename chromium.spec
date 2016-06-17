@@ -331,7 +331,7 @@ rm -rf tools/gyp/test/
 rm -rf v8/test/
 %endif
 
-%patch0 -p0
+%patch0 -p1
 
 # openSUSE patches
 %patch6 -p0
