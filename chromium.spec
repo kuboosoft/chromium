@@ -55,6 +55,7 @@ Conflicts:	chromium-unstable
 Patch0:		chromium-30.0.1599.66-master-prefs-path.patch
 
 Patch1:		chromium-widevine.patch
+Patch2:		widevine1.patch
 
 # PATCH-FIX-UPSTREAM Add more charset aliases
 Patch6:         chromium-more-codec-aliases.patch
@@ -374,9 +375,9 @@ rm -rf v8/test/
 
 # Enable support for the Widevine CDM plugin
   # libwidevinecdm.so is not included, but can be copied over from Chrome
-  # (Version string doesn't seem to matter so let's go with "Pinkie Pie")
-sed "s/@WIDEVINE_VERSION@/Willy Wonka postinstallerf/" ../chromium-widevine.patch |
-%patch1 -p1
+  # (Version string doesn't seem to matter so let's go with "Willy Wonka")
+%patch2 -p0
+
 
 # Hard code extra version
 FILE=chrome/common/channel_info_posix.cc

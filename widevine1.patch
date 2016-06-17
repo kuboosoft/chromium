@@ -1,0 +1,55 @@
+--- chrome/common/chrome_content_client.cc	2016-06-06 13:05:14.000000000 -0600
++++ chrome_content_client-1.cc	2016-06-17 00:35:29.599549460 -0600
+@@ -160,7 +160,12 @@
+ #if defined(WIDEVINE_CDM_AVAILABLE) && defined(ENABLE_PEPPER_CDMS) && \
+     !defined(WIDEVINE_CDM_IS_COMPONENT)
+   static bool skip_widevine_cdm_file_check = false;
+-  if (PathService::Get(chrome::FILE_WIDEVINE_CDM_ADAPTER, &path)) {
++  bool widevine_cdm_present =
++      skip_widevine_cdm_file_check ||
++      (PathService::Get(chrome::FILE_WIDEVINE_CDM, &path) &&
++       base::PathExists(path));
++  if (widevine_cdm_present &&
++      PathService::Get(chrome::FILE_WIDEVINE_CDM_ADAPTER, &path)) {
+     if (skip_widevine_cdm_file_check || base::PathExists(path)) {
+       content::PepperPluginInfo widevine_cdm;
+       widevine_cdm.is_out_of_process = true;
+
+
+--- chrome/common/chrome_paths.cc	2016-06-06 13:05:14.000000000 -0600
++++ chrome_paths-1.cc	2016-06-17 00:40:58.792239658 -0600
+@@ -356,6 +356,11 @@
+         return false;
+       cur = cur.AppendASCII(kWidevineCdmAdapterFileName);
+       break;
++    case chrome::FILE_WIDEVINE_CDM:
++      if (!GetInternalPluginsDirectory(&cur))
++        return false;
++      cur = cur.AppendASCII(kWidevineCdmFileName);
++      break;
+ #endif  // defined(WIDEVINE_CDM_AVAILABLE) && defined(ENABLE_PEPPER_CDMS)
+     case chrome::FILE_RESOURCES_PACK:
+ #if defined(OS_MACOSX)
+
+
+--- chrome/common/chrome_paths.h	2016-06-06 13:05:14.000000000 -0600
++++ chrome_paths-1.h	2016-06-17 01:24:31.246348503 -0600
+@@ -91,6 +91,7 @@
+   DIR_COMPONENT_WIDEVINE_CDM,   // Directory that contains component-updated
+                                 // Widevine CDM files.
+   FILE_WIDEVINE_CDM_ADAPTER,    // Full path to the Widevine CDM adapter file.
++  FILE_WIDEVINE_CDM,            // Full path to the Widevine CDM file.
+   FILE_RESOURCES_PACK,          // Full path to the .pak file containing
+                                 // binary data (e.g., html files and images
+                                 // used by internal pages).
+
+
+--- third_party/widevine/cdm/widevine_cdm_version.h	2016-06-06 13:05:40.000000000 -0600
++++ widevine_cdm_version-1.h	2016-06-17 01:08:29.158743966 -0600
+@@ -13,5 +13,5 @@
+ //  - WIDEVINE_CDM_AVAILABLE (to indicate availability), and
+ //  - WIDEVINE_CDM_VERSION_STRING (with the version of the CDM that's available
+ //    as a string, e.g., "1.0.123.456").
+-
++#define WIDEVINE_CDM_VERSION_STRING "Willy Wonka"
+ #endif  // WIDEVINE_CDM_VERSION_H_
