@@ -52,7 +52,7 @@ Provides:	chromium-stable
 Conflicts:	chromium-testing
 Conflicts:	chromium-unstable
 
-Patch0:		chromium-master-prefs-path.patch
+Patch0:		chromiumprefs_path.patch
 
 Patch2:		widevine.patch
 
@@ -79,7 +79,7 @@ Patch200:       enable_vaapi_on_linux.diff
 Patch201:       chromium-45.0.2454.101-system-icu-56-does-not-have-detectHostTimeZone.patch
 # (cjw) fix build problem with system libvpx due to usage of private header file
 # mageia patch
-Patch202:       chromium-svc_context.patch
+Patch202:       chromium_svccontext.patch
 # fix build with icu other than 54
 Patch204:	chromium-system-icu-r0.patch
 # (cjw) Don't disable deprecated APIs in ffmpeg header files, some of which change the ABI.
@@ -359,7 +359,7 @@ rm -rf v8/test/
 %endif
 
 %if 0%{?libvpx}
-%patch202 -p1 -b .system-libvpx
+%patch202 -p0
 %endif
 
 %if 0%{?ffmpeg}
