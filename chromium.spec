@@ -54,8 +54,7 @@ Conflicts:	chromium-unstable
 
 Patch0:		chromium-30.0.1599.66-master-prefs-path.patch
 
-Patch1:		chromium-widevine.patch
-Patch2:		widevine1.patch
+Patch2:		widevine.patch
 
 # PATCH-FIX-UPSTREAM Add more charset aliases
 Patch6:         chromium-more-codec-aliases.patch
